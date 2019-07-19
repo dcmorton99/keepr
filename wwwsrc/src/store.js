@@ -17,6 +17,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {}
+    //make sure to blow away vaults at logout
   },
   mutations: {
     setUser(state, user) {

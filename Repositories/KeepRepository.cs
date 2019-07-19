@@ -28,6 +28,12 @@ namespace Keepr.Repository
       return data;
     }
 
+
+    public IEnumerable<Keep> GetKeepsByUserId(string userId)
+    {
+      //do this next
+    }
+
     public Keep Create(Keep value)
     {
       string query = @"

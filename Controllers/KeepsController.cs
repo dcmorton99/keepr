@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
 using Keepr.Repository;
@@ -39,6 +40,20 @@ namespace Keepr.Controllers
       try
       {
         return Ok(_repo.GetById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e);
+      }
+    }
+
+    [HttpGet("api/user/:id/keeps")]
+    public ActionResult<IEnumerable<Keep>> GetKeepsByUserId(string userId)
+    {
+      userId = HttpContext.User.FindFirstValue("Id");
+      try
+      {
+        return Ok(_repo.GetKeepsByUserId(userId));
       }
       catch (Exception e)
       {

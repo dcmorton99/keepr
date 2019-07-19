@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using keepr.Repositories;
+using Keepr.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +50,8 @@ namespace Keepr
                   {
                     builder
                               .WithOrigins(new string[]{
-                                "http://localhost:8080"
+                                "http://localhost:8080",
+                                "http://localhost:8081"
                           })
                               .AllowAnyMethod()
                               .AllowAnyHeader()
@@ -57,12 +59,15 @@ namespace Keepr
                   });
           });
 
-      services.AddMvc();
+      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
       services.AddTransient<IDbConnection>(x => CreateDBContext());
 
       //REGISTER REPOSITORIES HERE
       services.AddTransient<UserRepository>();
+      services.AddTransient<VaultRepository>();
+      services.AddTransient<KeepRepository>();
+      services.AddTransient<VaultKeepsRepository>();
 
 
     }

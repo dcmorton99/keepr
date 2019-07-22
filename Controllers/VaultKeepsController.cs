@@ -53,14 +53,13 @@ namespace Keepr.Controllers
 
     // DELETE api/vaultkeeps/5
     [Authorize]
-    [HttpDelete("{id}")]
-    public ActionResult<VaultKeeps> Put(int id, [FromBody] VaultKeeps value)
+    [HttpPut]
+    public ActionResult<string> Put([FromBody] VaultKeeps value)
     {
       try
       {
         var userId = HttpContext.User.FindFirstValue("Id");
         value.UserId = userId;
-        value.Id = id;
         return Ok(_repo.Update(value));
       }
       catch (Exception e)

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
 using Keepr.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
@@ -20,11 +22,11 @@ namespace Keepr.Controllers
 
     // GET api/vaultkeeps/5
     [HttpGet("{id}")]
-    public ActionResult<VaultKeeps> Get(int id)
+    public ActionResult<IEnumerable<Keep>> Get(int id)
     {
       try
       {
-        return Ok(_repo.GetById(id));
+        return Ok(_repo.GetKeepsByVaultId(id));
       }
       catch (Exception e)
       {
@@ -33,11 +35,14 @@ namespace Keepr.Controllers
     }
 
     // POST api/vaultkeeps
+    [Authorize]
     [HttpPost]
-    public ActionResult<VaultKeeps> Post([FromBody] VaultKeeps value)
+    public ActionResult<string> Post([FromBody] VaultKeeps value)
     {
       try
       {
+        var userId = HttpContext.User.FindFirstValue("Id");
+        value.UserId = userId;
         return Ok(_repo.Create(value));
       }
       catch (Exception e)
@@ -46,28 +51,17 @@ namespace Keepr.Controllers
       }
     }
 
-    // PUT api/vaultkeeps/5
-    [HttpPut("{id}")]
+    // DELETE api/vaultkeeps/5
+    [Authorize]
+    [HttpDelete("{id}")]
     public ActionResult<VaultKeeps> Put(int id, [FromBody] VaultKeeps value)
     {
       try
       {
+        var userId = HttpContext.User.FindFirstValue("Id");
+        value.UserId = userId;
         value.Id = id;
         return Ok(_repo.Update(value));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e);
-      }
-    }
-
-    // DELETE api/vaultkeeps/5
-    [HttpDelete("{id}")]
-    public ActionResult<String> Delete(int id)
-    {
-      try
-      {
-        return Ok(_repo.Delete(id));
       }
       catch (Exception e)
       {

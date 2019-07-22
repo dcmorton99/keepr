@@ -53,14 +53,15 @@ namespace Keepr.Repository
       UPDATE keeps
       SET
         name = @Name,
-        descrtipion = @Description,
-        img = @Img;
+        description = @Description,
+        img = @Img,
         isPrivate = @IsPrivate,
         views = @Views,
         shares = @Shares,
-        keeps = @Keeps,
+        keeps = @Keeps
         WHERE id = @Id;
-        SELECT * FROM keeps WHERE id = @Id;";
+        SELECT * FROM keeps WHERE id = @Id;
+    ";
       return _db.QueryFirstOrDefault<Keep>(query, value);
     }
 

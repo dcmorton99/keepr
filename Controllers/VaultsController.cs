@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
 using Keepr.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
@@ -47,11 +49,14 @@ namespace Keepr.Controllers
     }
 
     // POST api/vaults
+    [Authorize]
     [HttpPost]
     public ActionResult<Vault> Post([FromBody] Vault value)
     {
       try
       {
+        var id = HttpContext.User.FindFirstValue("Id");
+        value.UserId = id;
         return Ok(_repo.Create(value));
       }
       catch (Exception e)

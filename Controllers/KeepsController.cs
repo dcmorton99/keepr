@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
 using Keepr.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
@@ -25,7 +26,7 @@ namespace Keepr.Controllers
     {
       try
       {
-        return Ok(_repo.GetALL());
+        return Ok(_repo.GetAll());
       }
       catch (Exception e)
       {
@@ -34,6 +35,7 @@ namespace Keepr.Controllers
     }
 
     // GET api/keeps/5
+
     [HttpGet("{id}")]
     public ActionResult<Keep> Get(int id)
     {
@@ -46,27 +48,29 @@ namespace Keepr.Controllers
         return BadRequest(e);
       }
     }
-
-    [HttpGet("api/user/:id/keeps")]
-    public ActionResult<IEnumerable<Keep>> GetKeepsByUserId(string userId)
+    [Authorize]
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Keep>> GetKeepsByUserId()
     {
-      userId = HttpContext.User.FindFirstValue("Id");
       try
       {
-        return Ok(_repo.GetKeepsByUserId(userId));
+        var id = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetKeepsByUserId(id));
       }
       catch (Exception e)
       {
         return BadRequest(e);
       }
     }
-
     // POST api/keeps
+    [Authorize]
     [HttpPost]
     public ActionResult<Keep> Post([FromBody] Keep value)
     {
       try
       {
+        var id = HttpContext.User.FindFirstValue("Id");
+        value.UserId = id;
         return Ok(_repo.Create(value));
       }
       catch (Exception e)
@@ -75,12 +79,16 @@ namespace Keepr.Controllers
       }
     }
 
+
     // PUT api/keeps/5
+    [Authorize]
     [HttpPut("{id}")]
     public ActionResult<Keep> Put(int id, [FromBody] Keep value)
     {
       try
       {
+        var userId = HttpContext.User.FindFirstValue("Id");
+        value.UserId = userId;
         value.Id = id;
         return Ok(_repo.Update(value));
       }

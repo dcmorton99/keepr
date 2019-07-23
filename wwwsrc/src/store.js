@@ -20,6 +20,7 @@ export default new Vuex.Store({
     vaults: [],
     vault: {},
     keeps: [],
+    userKeeps: [],
     keep: {}
     //make sure to blow away vaults at logout
   },
@@ -34,6 +35,9 @@ export default new Vuex.Store({
 
     setPublicKeeps(state, data) {
       state.keeps = data
+    },
+    setUserKeeps(state, data) {
+      state.userKeeps = data
     }
   },
   actions: {
@@ -68,10 +72,16 @@ export default new Vuex.Store({
     },
 
     getPublicKeeps({ commit, dispatch }) {
-      debugger
       api.get('keeps')
         .then(res => {
           commit('setPublicKeeps', res.data)
+        })
+    },
+
+    getUserKeeps({ commit, dispatch }) {
+      api.get('keeps/user')
+        .then(res => {
+          commit('setUserKeeps', res.data)
         })
     }
   }

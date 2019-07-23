@@ -1,23 +1,30 @@
 <template>
   <div class="container-fluid home">
     <div class="row">
-      <div class="col">
+      <div class="col-12">
         <h1>Welcome Home {{user.username}}</h1>
         <button v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
       </div>
-      <public-keeps />
+      <div class="row">
+        <public-keeps />
+      </div>
+      <div class="row" v-if="user.id">
+        <user-keeps />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import PublicKeeps from '@/components/PublicKeeps.vue'
+  import UserKeeps from '@/components/UserKeeps.vue'
 
   export default {
     name: "home",
     components: {
-      PublicKeeps
+      PublicKeeps,
+      UserKeeps
     },
     computed: {
       user() {
@@ -33,7 +40,9 @@
 
     mounted() {
       this.$store.dispatch("getPublicKeeps");
+      this.$store.dispatch("getUserKeeps");
     }, //mounted
+
 
   };
 </script>

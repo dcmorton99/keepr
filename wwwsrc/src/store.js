@@ -33,6 +33,14 @@ export default new Vuex.Store({
       state.user = {}
     },
 
+    setVaults(state, data) {
+      state.vaults = data
+    },
+
+    setVault(state, data) {
+      state.vault = data
+    },
+
     setPublicKeeps(state, data) {
       state.keeps = data
     },
@@ -40,6 +48,7 @@ export default new Vuex.Store({
       state.userKeeps = data
     }
   },
+
   actions: {
 
     async register({ commit, dispatch }, creds) {
@@ -69,6 +78,13 @@ export default new Vuex.Store({
       } catch (e) {
         console.warn(e.message)
       }
+    },
+
+    getVaults({ commit, dispatch }) {
+      api.get('vaults')
+        .then(res => {
+          commit('setVaults', res.data)
+        })
     },
 
     getPublicKeeps({ commit, dispatch }) {

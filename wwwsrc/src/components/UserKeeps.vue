@@ -25,7 +25,8 @@
       userKeeps() {
         return this.$store.state.userKeeps
       }
-    } //computed
+    }, //computed
+
   }
 </script>
 

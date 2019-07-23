@@ -3,14 +3,11 @@
     <div class="row">
       <div class="col-12">
         <h1>Welcome Home {{user.username}}</h1>
-        <button v-if="user.id" @click="logout">logout</button>
+        <button class="btn btn-info" v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
       </div>
       <div class="row">
         <public-keeps />
-      </div>
-      <div class="row" v-if="user.id">
-        <user-keeps />
       </div>
     </div>
   </div>
@@ -18,14 +15,14 @@
 
 <script>
   import PublicKeeps from '@/components/PublicKeeps.vue'
-  import UserKeeps from '@/components/UserKeeps.vue'
+
 
   export default {
     name: "home",
     components: {
-      PublicKeeps,
-      UserKeeps
+      PublicKeeps
     },
+
     computed: {
       user() {
         return this.$store.state.user;
@@ -40,7 +37,7 @@
 
     mounted() {
       this.$store.dispatch("getPublicKeeps");
-      this.$store.dispatch("getUserKeeps");
+
     }, //mounted
 
 

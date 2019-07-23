@@ -6,6 +6,7 @@
         <button class="btn btn-info" v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
       </div>
+      <router-link :to="{name: 'vaults'}">Go to Vaults</router-link>
       <div class="row">
         <public-keeps />
       </div>

@@ -59,7 +59,7 @@ CREATE TABLE vaultkeeps (
     FOREIGN KEY (keepId)
         REFERENCES keeps(id)
         ON DELETE CASCADE
-)
+);
 
 
 -- -- USE THIS LINE FOR GET KEEPS BY VAULTID

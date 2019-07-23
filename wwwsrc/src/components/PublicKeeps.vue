@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4">
+  <div class="col">
     <div class="card m-2" v-for="keep in keeps" :value="keep.id">
       <img :src="keep.img" class="card-img-top">
       <div class="card-body">
@@ -12,7 +12,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>

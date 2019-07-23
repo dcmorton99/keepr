@@ -68,6 +68,7 @@ export default new Vuex.Store({
     },
 
     getPublicKeeps({ commit, dispatch }) {
+      debugger
       api.get('keeps')
         .then(res => {
           commit('setPublicKeeps', res.data)

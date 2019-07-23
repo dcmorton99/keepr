@@ -1,11 +1,12 @@
 <template>
   <div class="row">
-    <div class="col">
+    <div class="col-3">
       <div class="card" v-for="keep in keeps" :value="keep.id">
-        <img src="http://placehold.it/200x200" class="card-img-top">
+        <img :src="keep.img" class="card-img-top">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <h3 class="card-title">{{keep.name}}</h3>
+          <h5>{{keep.description}}</h5>
+          <i class="far fa-eye"> {{keep.views}}</i>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@
       <div class="row">
         <public-keeps />
       </div>
-      <div class="row" v-if="user.id">
+      <div v-if="user.id">
         <user-keeps />
         <create-keep />
       </div>

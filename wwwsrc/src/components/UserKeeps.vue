@@ -1,5 +1,5 @@
 <template>
-  <div class="col">
+  <div class="row">
     <div class="card m-2" v-for="keep in userKeeps" :value="keep.id">
       <img :src="keep.img" class="card-img-top">
       <div class="card-body">
@@ -17,6 +17,7 @@
             </option>
           </select>
           <button type="submit">Submit</button>
+          <button class="btn btn-warning" @click="goPublic(keep.isPrivate == false)">Go public baby!</button>
         </form>
       </div>
     </div>
@@ -30,6 +31,7 @@
     data() {
       return {
         selected: ""
+        // isPrivate = true,
       }
     }, //data
     computed: {
@@ -49,12 +51,14 @@
         this.$store.dispatch("deleteKeep", id)
       },
       addToVault(payload) {
-        debugger
         let data = {
           vaultId: this.selected,
           keepId: payload
         }
         this.$store.dispatch("addKeepToVault", data)
+      },
+      goPublic() {
+        this.$store.dispatch("keepGoesPublic")
       }
     }
 

@@ -50,7 +50,12 @@
     },//mounted
     methods: {
       deleteFromVault(id) {
-        this.$store.dispatch('deleteVaultKeep')
+        debugger
+        let data = {
+          vaultId: this.vaultId,
+          keepId: id
+        }
+        this.$store.dispatch('deleteVaultKeep', data)
       }
     }
   }

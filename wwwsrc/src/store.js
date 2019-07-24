@@ -138,6 +138,12 @@ export default new Vuex.Store({
           dispatch('getUserKeeps')
         })
     },
+    updateKeep({ commit, dispatch }, payload) {
+      api.put('keeps/' + payload.id, payload)
+        .then(res => {
+          dispatch('getPublicKeeps')
+        })
+    },
 
     async getVaultKeeps({ commit, dispatch }, vaultId) {
       try {
@@ -150,8 +156,14 @@ export default new Vuex.Store({
     addKeepToVault({ commit, dispatch }, data) {
       api.post('vaultkeeps', data)
         .then(res => {
-          dispatch('getVaultKeeps', data.vaultId)
+          commit('getVaultKeeps', data.vaultId)
         })
     },
+    deleteVaultKeep({ commit, dispatch }, payload) {
+      api.put('vaultkeeps/', payload)
+        .then(res => {
+          commit('getVaultkeeps', payload.vaultId)
+        })
+    }
   }
 })

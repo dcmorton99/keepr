@@ -87,11 +87,16 @@ export default new Vuex.Store({
         console.log(res)
       } catch (error) { console.log(error) }
     },
-
     createVault({ commit, dispatch }, payload) {
       api.post('vaults', payload)
         .then(res => {
           commit("getVaults")
+        })
+    },
+    deleteVault({ commit, dispatch }, id) {
+      api.delete('vaults/' + id)
+        .then(res => {
+          dispatch('getVaults')
         })
     },
 
@@ -101,21 +106,18 @@ export default new Vuex.Store({
           commit('setPublicKeeps', res.data)
         })
     },
-
     async getUserKeeps({ commit, dispatch }) {
       try {
         let res = await api.get('keeps/user')
         commit('setUserKeeps', res.data)
       } catch (error) { console.log(error) }
     },
-
     createKeep({ commit, dispatch }, payload) {
       api.post('keeps', payload)
         .then(res => {
           commit('getUserKeeps')
         })
     },
-
     deleteKeep({ commit, dispatch }, id) {
       api.delete('keeps/' + id)
         .then(res => {

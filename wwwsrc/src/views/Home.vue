@@ -11,18 +11,26 @@
       <div class="row">
         <public-keeps />
       </div>
+      <div class="row" v-if="user.id">
+        <user-keeps />
+        <create-keep />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import PublicKeeps from '@/components/PublicKeeps.vue'
+  import UserKeeps from '@/components/UserKeeps.vue'
+  import CreateKeep from '@/components/CreateKeep.vue'
 
 
   export default {
     name: "home",
     components: {
-      PublicKeeps
+      PublicKeeps,
+      UserKeeps,
+      CreateKeep
     },
 
     computed: {
@@ -39,6 +47,8 @@
 
     mounted() {
       this.$store.dispatch("getPublicKeeps");
+      this.$store.dispatch("getUserKeeps");
+
 
     }, //mounted
 

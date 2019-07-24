@@ -15,23 +15,24 @@ namespace Keepr.Repository
       _db = db;
     }
 
-    public IEnumerable<Keep> GetKeepsByVaultId(int id)
+    public IEnumerable<Keep> GetKeepsByVaultId(int vaultId, string userId)
     {
       string query = @"
       SELECT * FROM vaultkeeps vk
       INNER JOIN keeps k ON k.id = vk.keepId
-      WHERE(vaultId = @vaultId AND vk.userId = @userId)";
-      return _db.Query<Keep>(query, new { id });
+      WHERE(vaultId = @vaultId AND vk.userId = @userId);";
+      return _db.Query<Keep>(query, new { vaultId, userId });
+
     }
 
-    public string Create(VaultKeeps value)
+    public VaultKeeps Create(VaultKeeps value)
     {
       string query = @"
       INSERT INTO vaultkeeps (vaultId, keepId, userId)
              VALUES(@VaultId, @KeepId, @UserId);";
-      int changedRows = _db.Execute(query, value);
-      if (changedRows < 1) throw new Exception("Invalid Ids");
-      return "Successfully added Keep to Vault";
+      int id = _db.ExecuteScalar<int>(query, value);
+      value.Id = id;
+      return value;
     }
 
     public string Update(VaultKeeps value)

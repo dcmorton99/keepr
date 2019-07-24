@@ -21,23 +21,25 @@ namespace Keepr.Controllers
     }
 
     // GET api/vaultkeeps/5
+    [Authorize]
     [HttpGet("{id}")]
     public ActionResult<IEnumerable<Keep>> Get(int id)
     {
       try
       {
-        return Ok(_repo.GetKeepsByVaultId(id));
+        var userId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetKeepsByVaultId(id, userId));
       }
       catch (Exception e)
       {
-        return BadRequest(e);
+        return BadRequest(e.Message);
       }
     }
 
     // POST api/vaultkeeps
     [Authorize]
     [HttpPost]
-    public ActionResult<string> Post([FromBody] VaultKeeps value)
+    public ActionResult<VaultKeeps> Post([FromBody] VaultKeeps value)
     {
       try
       {

@@ -4,9 +4,10 @@
       <div class="col-12">
         <h1>Welcome Home {{user.username}}</h1>
         <button class="btn btn-info" v-if="user.id" @click="logout">logout</button>
-        <router-link v-else :to="{name: 'login'}">Login</router-link>
+        <router-link v-else :to="{name: 'login'}"><button class="btn btn-warning">Login</button></router-link>
+        <router-link :to="{name: 'vaults'}"><button class="btn btn-warning" v-if="user.id">Go to Vaults</button>
+        </router-link>
       </div>
-      <router-link :to="{name: 'vaults'}">Go to Vaults</router-link>
       <div class="row">
         <public-keeps />
       </div>

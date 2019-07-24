@@ -102,17 +102,24 @@ export default new Vuex.Store({
         })
     },
 
-    getUserKeeps({ commit, dispatch }) {
-      api.get('keeps/user')
-        .then(res => {
-          commit('setUserKeeps', res.data)
-        })
+    async getUserKeeps({ commit, dispatch }) {
+      try {
+        let res = await api.get('keeps/user')
+        commit('setUserKeeps', res.data)
+      } catch (error) { console.log(error) }
     },
 
     createKeep({ commit, dispatch }, payload) {
       api.post('keeps', payload)
         .then(res => {
           commit('getUserKeeps')
+        })
+    },
+
+    deleteKeep({ commit, dispatch }, id) {
+      api.delete('keeps/' + id)
+        .then(res => {
+          dispatch('getUserKeeps')
         })
     }
   }

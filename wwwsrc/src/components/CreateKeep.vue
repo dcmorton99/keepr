@@ -3,7 +3,7 @@
     <form @submit.prevent="createKeep">
       <input class="m-1" type="text" v-model="newKeep.name" placeholder="name">
       <input class="m-1" type="text" v-model="newKeep.description" placeholder="description">
-      <input class="m-1" type="text" v-model="newKeep.img" placeholder="img url">
+      <textarea class="m-1" type="text" v-model="newKeep.img" placeholder="img url"></textarea>
       <button class="btn btn-info m-2" type="submit">+Keep</button>
     </form>
   </div>
@@ -17,7 +17,10 @@
         newKeep: {
           name: "",
           description: "",
-          img: ""
+          img: "",
+          isPrivate: true,
+
+
         }
       }
     }, //data

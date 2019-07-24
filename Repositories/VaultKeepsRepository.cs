@@ -21,7 +21,9 @@ namespace Keepr.Repository
       SELECT * FROM vaultkeeps vk
       INNER JOIN keeps k ON k.id = vk.keepId
       WHERE(vaultId = @vaultId AND vk.userId = @userId);";
-      return _db.Query<Keep>(query, new { vaultId, userId });
+      IEnumerable<Keep> data = _db.Query<Keep>(query, new { vaultId, userId });
+      if (data == null) throw new Exception("Invalid Id");
+      return data;
 
     }
 

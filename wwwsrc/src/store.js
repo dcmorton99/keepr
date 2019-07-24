@@ -21,6 +21,7 @@ export default new Vuex.Store({
     vault: {},
     keeps: [],
     userKeeps: [],
+    vaultKeeps: [],
     keep: {}
     //make sure to blow away vaults at logout
   },
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     setUserKeeps(state, data) {
       state.userKeeps = data
+    },
+    setVaultKeeps(state, data) {
+      state.vaultKeeps = data
     }
   },
 
@@ -90,7 +94,7 @@ export default new Vuex.Store({
     createVault({ commit, dispatch }, payload) {
       api.post('vaults', payload)
         .then(res => {
-          commit("getVaults")
+          dispatch("getVaults")
         })
     },
     deleteVault({ commit, dispatch }, id) {
@@ -123,6 +127,20 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getUserKeeps')
         })
-    }
+    },
+
+    async getVaultKeeps({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.get('vaultkeeps/' + vaultId)
+        commit('setVaultKeeps', res.data)
+      } catch (error) { console.log(error) }
+    },
+
+    addKeepToVault({ commit, dispatch }, data) {
+      api.post('vaultkeeps', data)
+        .then(res => {
+          dispatch('getVaultKeeps', data.vaultId)
+        })
+    },
   }
 })

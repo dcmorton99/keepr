@@ -2,7 +2,7 @@
   <div class="container-fluid home">
     <div class="row">
       <div class="col-12">
-        <h1>Welcome Home {{user.username}}</h1>
+        <h1>Welcome to Keepr {{user.username}}</h1>
         <button class="btn btn-info" v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}"><button class="btn btn-warning">Login</button></router-link>
         <router-link :to="{name: 'vaults'}"><button class="btn btn-warning" v-if="user.id">Go to Vaults</button>

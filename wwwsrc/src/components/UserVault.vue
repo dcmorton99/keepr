@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4">
+  <div class="col">
     <div class="card m-2" v-for="vault in vaults" :value="vault.id">
       <div class="card-body">
         <h3 class="card-title">{{vault.name}}</h3>

@@ -6,6 +6,7 @@
         <h5>{{vault.description}}</h5>
         <button type="button" class="btn btn-secondary m-2" @click="deleteVault(vault.id)"><i
             class="far fa-trash-alt"></i></button>
+        <button class="btn btn-info" @click="goToVault(vault.id)">Go to Vault</button>
       </div>
     </div>
   </div>
@@ -29,6 +30,9 @@
     methods: {
       deleteVault(id) {
         this.$store.dispatch('deleteVault', id)
+      },
+      goToVault(id) {
+        this.$store.dispatch('getVault', id)
       }
     }
 

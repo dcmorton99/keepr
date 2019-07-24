@@ -91,6 +91,16 @@ export default new Vuex.Store({
         console.log(res)
       } catch (error) { console.log(error) }
     },
+
+    async getVault({ commit, dispatch }, id) {
+      try {
+        let res = await api.get('vaults/' + id)
+        commit('setVault', res.data)
+        console.log(res)
+        router.push({ name: 'vault', params: { id: id } })
+      } catch (error) { console.log(error) }
+    },
+
     createVault({ commit, dispatch }, payload) {
       api.post('vaults', payload)
         .then(res => {
@@ -133,6 +143,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get('vaultkeeps/' + vaultId)
         commit('setVaultKeeps', res.data)
+        console.log(res)
       } catch (error) { console.log(error) }
     },
 

@@ -1,7 +1,7 @@
 <template>
   <div class="col">
     <div class="card" id="create-keep">
-      <h4>Create New Keeps</h4>
+      <h4>Create New Keeps:</h4>
       <form @submit.prevent="createKeep">
         <input class="m-1" type="text" v-model="newKeep.name" placeholder="name">
         <input class="m-1" type="text" v-model="newKeep.description" placeholder="description">

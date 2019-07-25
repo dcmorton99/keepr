@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h4>{{vault.name}}</h4>
+        <h4>Vault: {{vault.name}}</h4>
+        <router-link :to="{name: 'home'}"><button class="btn btn-secondary m-2">Go Home</button>
+        </router-link>
         <div class="card m-2" v-for="vaultkeep in vaultKeeps" :value="vaultkeep.id">
           <img :src="vaultkeep.img" class="card-img-top">
           <div class="card-body">

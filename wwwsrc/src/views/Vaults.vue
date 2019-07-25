@@ -15,18 +15,18 @@
         </form>
       </div>
     </div>
+
     <div class="row">
       <user-vault />
     </div>
     <div class="row">
+      <create-keep />
       <div class="col-12">
         <h2>My Keeps</h2>
       </div>
-      <create-keep />
     </div>
-
     <div class="row">
-      <user-keeps />
+      <user-keeps v-for="keep in userKeeps" :value="keep.id" :myKeeps="keep" />
     </div>
   </div>
 </template>
@@ -55,12 +55,16 @@
     computed: {
       user() {
         return this.$store.state.user;
+      },
+      userKeeps() {
+        return this.$store.state.userKeeps;
       }
     }, //computed
     mounted() {
       this.$store.dispatch("getVaults");
-
+      this.$store.dispatch("getUserKeeps")
     },//mounted
+
     methods: {
       createVault() {
         this.$store.dispatch("createVault", this.newVault)

@@ -11,36 +11,26 @@
       <div class="row">
         <public-keeps v-for="keep in keeps" :value="keep.id" :publicKeeps="keep" />
       </div>
-
-      <div v-if="user.id">
-        <user-keeps />
-        <create-keep />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
   import PublicKeeps from '@/components/PublicKeeps.vue'
-  import UserKeeps from '@/components/UserKeeps.vue'
-  import CreateKeep from '@/components/CreateKeep.vue'
+
 
 
   export default {
     name: "home",
     components: {
-      PublicKeeps,
-      UserKeeps,
-      CreateKeep
+      PublicKeeps
     },
 
     computed: {
       user() {
         return this.$store.state.user;
       },
-      userKeeps() {
-        return this.$store.state.userKeeps;
-      },
+
       keeps() {
         return this.$store.state.keeps;
       }
@@ -54,9 +44,6 @@
 
     mounted() {
       this.$store.dispatch("getPublicKeeps");
-      this.$store.dispatch("getUserKeeps");
-
-
     }, //mounted
 
 

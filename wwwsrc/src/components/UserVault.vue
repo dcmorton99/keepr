@@ -2,7 +2,7 @@
   <div class="col">
     <div class="card m-2" v-for="vault in vaults" :value="vault.id">
       <div class="card-body">
-        <h3 class="card-title">{{vault.name}}</h3>
+        <h4 class="card-title">{{vault.name}}</h4>
         <h5>{{vault.description}}</h5>
         <button type="button" class="btn btn-secondary m-2" @click="deleteVault(vault.id)"><i
             class="far fa-trash-alt"></i></button>

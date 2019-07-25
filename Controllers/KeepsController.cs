@@ -104,7 +104,6 @@ namespace Keepr.Controllers
     {
       try
       {
-
         return Ok(_repo.Delete(id));
       }
       catch (Exception e)

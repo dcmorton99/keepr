@@ -52,7 +52,6 @@
     },//mounted
     methods: {
       deleteFromVault(id) {
-        debugger
         let data = {
           vaultId: this.vaultId,
           keepId: id

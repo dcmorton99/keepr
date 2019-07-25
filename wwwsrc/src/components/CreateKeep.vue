@@ -8,6 +8,7 @@
         <br />
         <textarea class="m-1" type="text" v-model="newKeep.img" placeholder="img url"></textarea>
         <br />
+        <input type="checkbox" v-model="newKeep.isPrivate" :value="true">Keep it to yourself?
         <button class="btn btn-info m-2" type="submit">+Keep</button>
       </form>
     </div>
@@ -23,7 +24,7 @@
           name: "",
           description: "",
           img: "",
-          isPrivate: true,
+          isPrivate: false,
 
 
         }
@@ -31,6 +32,7 @@
     }, //data
     methods: {
       createKeep() {
+        debugger
         this.$store.dispatch('createKeep', this.newKeep)
       }
     }, //methods

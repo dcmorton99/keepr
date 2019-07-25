@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="col-12">
+        <h1>Welcome to Your Dashboard {{user.username}}</h1>
+        <router-link :to="{name: 'home'}"><button class="btn btn-secondary m-2">Go Home</button>
+        </router-link>
+      </div>
       <div class="col">
+        <h4>Create a New Vault: </h4>
         <form @submit.prevent="createVault">
           <input class="m-1" type="text" v-model="newVault.name" placeholder="name">
           <input class="m-1" type="text" v-model="newVault.description" placeholder="description">
@@ -9,20 +15,34 @@
         </form>
       </div>
     </div>
-    <div class="row" v-if="user.id">
+    <div class="row">
       <user-vault />
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2>My Keeps</h2>
+      </div>
+      <create-keep />
+    </div>
+
+    <div class="row">
+      <user-keeps />
     </div>
   </div>
 </template>
 
 <script>
   import UserVault from '@/components/UserVault.vue'
+  import CreateKeep from '@/components/CreateKeep.vue'
+  import UserKeeps from '@/components/UserKeeps.vue'
 
 
   export default {
     name: 'Vaults',
     components: {
-      UserVault
+      UserVault,
+      CreateKeep,
+      UserKeeps
     },
     data() {
       return {
@@ -35,7 +55,6 @@
     computed: {
       user() {
         return this.$store.state.user;
-
       }
     }, //computed
     mounted() {

@@ -17,7 +17,7 @@
               <option v-for="vault in vaults" :value="vault.id">{{vault.name}}
               </option>
             </select>
-            <button type="submit">Submit</button>
+            <button class="btn-sm btn-info m-2" type="submit">Submit</button>
             <button class="btn btn-warning" @click="goPublic(keep.isPrivate == false)">Go public baby!</button>
           </form>
         </div>

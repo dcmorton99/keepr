@@ -1,45 +1,46 @@
 <template>
-  <div class="row">
-    <div class="col m-4" v-for="keep in keeps" :value="keep.id">
-      <div class="card m-2" id="publickeeps">
-        <div class="card-body">
-          <h3 class="card-title">{{keep.name}}</h3>
-          <img :src="keep.img" class="card-img-top">
-          <h5>{{keep.description}}</h5>
-          <i class="far fa-eye m-1"> {{keep.views}} </i>
-          <i class="fas fa-bullhorn m-1"> {{keep.shares}} </i>
-          <i class="far fa-hdd m-1"> {{keep.keeps}} </i>
-          <button type="button" class="btn btn-success m-2" @click="gotToKeep(keep.id)">Lookie!</button>
-          <form @submit.prevent="addToVault(keep.id)">
-            <select v-model="selected">
-              <option disabled value>Add to a Vault</option>
-              <option v-for="vault in vaults" :value="vault.id">{{vault.name}}
-              </option>
-            </select>
-            <button type="submit">Submit</button>
 
-          </form>
-        </div>
+  <div class="col">
+    <div class="card m-2" id="publickeeps">
+      <div class="card-body">
+        <h3 class="card-title">{{publicKeeps.name}}</h3>
+        <img :src="publicKeeps.img" class="card-img-top">
+        <h5>{{publicKeeps.description}}</h5>
+        <i class="far fa-eye m-1"> {{publicKeeps.views}} </i>
+        <i class="fas fa-bullhorn m-1"> {{publicKeeps.shares}} </i>
+        <i class="far fa-hdd m-1"> {{publicKeeps.keeps}} </i>
+        <form @submit.prevent="addToVault(publicKeeps.id)">
+          <select v-model="selected">
+            <option disabled value>Add to a Vault</option>
+            <option v-for="vault in vaults" :value="vault.id">{{vault.name}}
+            </option>
+          </select>
+          <button class="btn-sm btn-info m-2" type="submit">Submit</button>
+        </form>
       </div>
     </div>
   </div>
+
+
 </template>
 
 <script>
   export default {
     name: 'PublicKeeps',
+    props: ["publicKeeps"],
     data() {
       return {
         selected: ""
       }
     }, //data
     computed: {
-      keeps() {
-        return this.$store.state.keeps
-      },
       vaults() {
         return this.$store.state.vaults
+      },
+      keeps() {
+        return this.$store.state.keeps
       }
+
     }, //computed
     methods: {
       addToVault(payload) {

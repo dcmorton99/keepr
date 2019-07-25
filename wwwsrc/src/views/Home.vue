@@ -1,6 +1,9 @@
 <template>
   <div class="container-fluid home">
     <div class="row">
+      <div class="col">
+        <!-- <img alt="keeprlogo" :src="../assets/keeprlogo.png"> -->
+      </div>
       <div class="col-12">
         <h1>Welcome to Keepr {{user.username}}</h1>
         <button class="btn btn-info" v-if="user.id" @click="logout">logout</button>
@@ -8,7 +11,7 @@
         <router-link :to="{name: 'vaults'}"><button class="btn btn-warning" v-if="user.id">Go to Vaults</button>
         </router-link>
       </div>
-      <div class="row">
+      <div>
         <public-keeps />
       </div>
       <div v-if="user.id">

@@ -10,6 +10,15 @@
           <i class="fas fa-bullhorn m-1"> {{keep.shares}} </i>
           <i class="far fa-hdd m-1"> {{keep.keeps}} </i>
           <button type="button" class="btn btn-success m-2" @click="gotToKeep(keep.id)">Lookie!</button>
+          <form @submit.prevent="addToVault(keep.id)">
+            <select v-model="selected">
+              <option disabled value>Add to a Vault</option>
+              <option v-for="vault in vaults" :value="vault.id">{{vault.name}}
+              </option>
+            </select>
+            <button type="submit">Submit</button>
+
+          </form>
         </div>
       </div>
     </div>
@@ -20,13 +29,27 @@
   export default {
     name: 'PublicKeeps',
     data() {
-      return {}
+      return {
+        selected: ""
+      }
     }, //data
     computed: {
       keeps() {
         return this.$store.state.keeps
+      },
+      vaults() {
+        return this.$store.state.vaults
       }
-    } //computed
+    }, //computed
+    methods: {
+      addToVault(payload) {
+        let data = {
+          vaultId: this.selected,
+          keepId: payload
+        }
+        this.$store.dispatch("addKeepToVault", data)
+      },
+    }, //methods
   }
 </script>
 

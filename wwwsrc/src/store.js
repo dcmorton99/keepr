@@ -32,6 +32,8 @@ export default new Vuex.Store({
     resetState(state) {
       //clear the entire state object of user data
       state.user = {}
+      state.vaults = []
+      state.userKeeps = []
     },
 
     setVaults(state, data) {

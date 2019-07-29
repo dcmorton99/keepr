@@ -99,12 +99,14 @@ namespace Keepr.Controllers
     }
 
     // DELETE api/keeps/5
+    [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<String> Delete(int id)
     {
       try
       {
-        return Ok(_repo.Delete(id));
+        var userId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.Delete(id, userId));
       }
       catch (Exception e)
       {

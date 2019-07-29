@@ -24,15 +24,12 @@
           name: "",
           description: "",
           img: "",
-          isPrivate: false,
-
-
+          isPrivate: false
         }
       }
     }, //data
     methods: {
       createKeep() {
-        debugger
         this.$store.dispatch('createKeep', this.newKeep)
       }
     }, //methods

@@ -6,9 +6,9 @@
         <h3 class="card-title">{{publicKeeps.name}}</h3>
         <img :src="publicKeeps.img" class="card-img-top">
         <h5>{{publicKeeps.description}}</h5>
-        <i class="far fa-eye m-1"> {{publicKeeps.views}} </i>
-        <i class="fas fa-bullhorn m-1"> {{publicKeeps.shares}} </i>
-        <i class="far fa-hdd m-1"> {{publicKeeps.keeps}} </i>
+        <button class="btn-sm btn-secondary m-1">Views: {{publicKeeps.views}}</button>
+        <button class="btn-sm btn-secondary m-1" @click="">Shares: {{publicKeeps.shares}}</button>
+        <button class="btn-sm btn-secondary m-1">Keeps: {{publicKeeps.keeps}}</button>
         <form @submit.prevent="addToVault(publicKeeps.id)">
           <select v-model="selected">
             <option disabled value>Add to a Vault</option>
